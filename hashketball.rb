@@ -1,5 +1,4 @@
 
-
 def game_hash
   {:home => {
     :team_name => 'Brooklyn Nets',
@@ -27,10 +26,14 @@ def game_hash
 end
 
 def num_points_scored(player_name)
+  return find_player(player_name)[:points]
+end
+
+def find_player(player_name)
   game_hash.each do |team, data|
     data[:players].each do |player|
       if player[:player_name] == player_name
-        return player[:points]
+        return player
       end
     end
   end
@@ -87,8 +90,7 @@ def big_shoe_rebounds
   rebounds = 0
   game_hash.each do |team, data|
     data[:players].each do |player|
-      size = player[:shoe]
-      if size > biggest_shoe
+      if player[:shoe] > biggest_shoe
         biggest_shoe = size
       elsif player[:rebounds] > rebounds 
         rebounds = player[:rebounds]
